@@ -1,0 +1,28 @@
+# task 1
+select customer_id, count(driver_id) from bookings group by customer_id limit 20;
+
+# task 2
+select customer_id, count(*) from bookings group by customer_id limit 20;
+
+# task 3
+select
+(sum(case when button_id = "fcba68aa-1231-11eb-adc1-0242ac120002" and is_button_click = 'Yes' then 1 end) /
+sum(case when page_id = "e7bc5fb2-1231-11eb-adc1-0242ac120002" and is_page_view = 'Yes' then 1 end)) as conversion_ratio
+from clicking_stream;
+
+# task 4
+select count(*) from bookings where cab_color = 'black';
+
+# task 5
+select date(pickup_timestamp), sum(tip_amount) from bookings group by date(pickup_timestamp) limit 20;
+
+# task 6
+select date_format(pickup_timestamp, 'YYYY-MM') as monthwise, count(*) as total_bookings
+from bookings where rating_by_customer < 2
+group by date_format(pickup_timestamp, 'YYYY-MM')
+order by monthwise;
+
+# task 7
+select count(*) from clicking_stream where os_version = 'iOS';
+
+

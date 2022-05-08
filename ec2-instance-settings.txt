@@ -1,0 +1,47 @@
+ssh -i "cloudera.pem" ec2-user@ec2-18-207-238-165.compute-1.amazonaws.com
+
+http://10.0.0.174/cdh5/parcels/5.15.1/
+
+wget https://anaconda-parcels.s3.amazonaws.com/anaconda/Anaconda-2019.10-el7.parcel.sha
+chown cloudera-scm:cloudera-scm Anaconda-2019.10-el7.parcel.sha
+chmod 644 Anaconda-2019.10-el7.parcel.sha
+
+wget https://anaconda-parcels.s3.amazonaws.com/anaconda/Anaconda-2019.10-el7.parcel
+chown cloudera-scm:cloudera-scm Anaconda-2019.10-el7.parcel
+chmod 644 Anaconda-2019.10-el7.parcel
+
+systemctl restart cloudera-scm-server
+systemctl restart cloudera-scm-agent
+systemctl status cloudera-scm-server
+
+export PATH="/opt/cloudera/parcels/Anaconda/bin:$PATH"
+
+export​ JAVA_HOME=/usr/java/jdk1.8.0_232-cloudera/
+export​ JRE_HOME=/usr/java/jdk1.8.0_232-cloudera/jre/
+export​ PATH=​$JAVA_HOME​/bin:​$PATH
+
+export​ JAVA_HOME=/usr/java/jdk1.8.0_232-cloudera/
+export​ JRE_HOME=/usr/java/jdk1.8.0_232-cloudera/jre/
+export​ PATH=​$JAVA_HOME​/bin:​$PATH
+
+wget https://spark2jar-test.s3.amazonaws.com/SPARK2_ON_YARN-2.3.0.cloudera2.jar
+
+chown cloudera-scm:cloudera-scm SPARK2_ON_YARN-2.3.0.cloudera2.jar
+
+wget https://spark2jar-test.s3.amazonaws.com/SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel.sha
+chown cloudera-scm:cloudera-scm SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel.sha
+chmod 644 SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel.sha
+
+wget https://spark2jar-test.s3.amazonaws.com/SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel
+chown cloudera-scm:cloudera-scm SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel
+chmod 644 SPARK2-2.3.0.cloudera2-1.cdh5.13.3.p0.316101-el7.parcel
+
+source /etc/profile
+
+mkdir /var/log/spark2/lineage
+chown spark:spark /var/log/spark2/lineage
+chmod 777 /var/log/spark2/lineage
+
+
+
+

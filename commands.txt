@@ -1,0 +1,36 @@
+# consume data from Kafka bootstrap server
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.1 spark_kafka_to_local.py 18.211.252.152 9092 de-capstone3
+
+spark2-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.2 spark_kafka_to_local.py 18.211.252.152 9092 de-capstone3
+
+bin/kafka-console-consumer.sh --bootstrap-server 18.211.252.152:9092 --topic de-capstone3 --from-beginning
+
+
+# access ec2-instance
+ssh -i "cloudera.pem" ec2-user@ec2-34-239-151-232.compute-1.amazonaws.com
+
+# transfer files
+### local to ec2-instance
+scp -i "cloudera.pem" C:\Users\yoksu\Desktop\capstone_project\spark_local_flatten_datewise_aggregates.py ec2-user@ec2-3-238-231-4.compute-1.amazonaws.com:/root/capstone_project
+
+### ec2-instance to local
+scp -i "cloudera.pem" ec2-user@ec2-34-239-151-232.compute-1.amazonaws.com:~/capstone-project/capstone.py capstone-project/
+
+
+# check data in HDFS
+hadoop fs -cat /user/ec2-user/capstone-project/warehouse/capstone/*
+hadoop fs -cat /user/ec2-user/capstone-project/rds-data/*
+
+# data ingestion using Sqoop
+sqoop import --connect jdbc:mysql://upgraddetest.cyaielc9bmnf.us-east-1.rds.amazonaws.com/testdatabase --table bookings \
+--username student --password STUDENT123 --target-dir /user/ec2-user/capstone_project/rds-data -m 1
+
+
+
+# jupyter notebook
+http://ec2-34-239-151-232.compute-1.amazonaws.com:8888/?token=17eb721c0402e975de72428c21c82c381f887baa1eb53b12
+
+
+# graceful shutdown
+ps -ef | grep spark | grep spark_kafka_to_local | awk '{print $2}' | xargs kill -SIGTERM
+
